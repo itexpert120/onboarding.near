@@ -7,7 +7,7 @@ const config = {
     },
   },
   blocks: {
-    Header: () => <></>,
+    Header: () => <Widget src="${config_account}/widget/components.Header" />,
     Footer: () => <></>,
   },
   router: {
