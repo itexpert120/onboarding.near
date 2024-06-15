@@ -30,6 +30,13 @@ const config = {
         },
         default: true,
       },
+      welcome: {
+        path: "${config_account}/widget/page.welcome.Index",
+        blockHeight: "final",
+        init: {
+          name: "Welcome",
+        },
+      },
     },
   },
 };
