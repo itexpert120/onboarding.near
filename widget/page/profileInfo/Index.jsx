@@ -28,6 +28,15 @@ const Container = styled.div`
 
 return (
   <Container>
+    <Widget
+      src="${config_account}/widget/components.profileInfo.PageIndicator"
+      loading=""
+      props={{
+        page: currentPage,
+        pages: pages,
+        setCurrentPage,
+      }}
+    />
     <Widget src={currentPage} loading="" />
     <Button onClick={toggleNextPage}>continue</Button>
   </Container>
