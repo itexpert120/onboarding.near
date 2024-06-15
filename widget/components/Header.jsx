@@ -2,6 +2,10 @@ const { Logo } = VM.require("${config_account}/widget/components.Logo") || {
   Logo: () => <></>,
 };
 
+const { Button } = VM.require("${config_account}/widget/components.Button") || {
+  Button: () => <></>,
+};
+
 const Navbar = styled.div`
   padding: 12px 40px;
   display: flex;
@@ -14,5 +18,11 @@ const Navbar = styled.div`
 return (
   <Navbar>
     <Logo />
+    <div>
+      <Widget
+        src="${config_account}/widget/components.buttons.UserDropdown"
+        loadin=""
+      />
+    </div>
   </Navbar>
 );
