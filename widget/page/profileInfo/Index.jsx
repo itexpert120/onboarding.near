@@ -17,13 +17,20 @@ const toggleNextPage = useCallback(() => {
     setCurrentPage(nextPage);
   }
 }, [currentPage]);
+const togglePreviousPage = useCallback(() => {
+  const nextPage = pages[pages.indexOf(currentPage) - 1];
+  if (nextPage) {
+    setCurrentPage(nextPage);
+  }
+}, [currentPage]);
 
 const Container = styled.div`
   max-width: 442px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
+  gap: 8px;
 `;
 
 return (
@@ -39,5 +46,10 @@ return (
     />
     <Widget src={currentPage} loading="" />
     <Button onClick={toggleNextPage}>continue</Button>
+    {currentPage !== pages[0] && (
+      <Button variant="tertiary" onClick={togglePreviousPage}>
+        <i className="bi bi-arrow-left"></i>back
+      </Button>
+    )}
   </Container>
 );
