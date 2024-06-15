@@ -18,9 +18,17 @@ const toggleNextPage = useCallback(() => {
   }
 }, [currentPage]);
 
+const Container = styled.div`
+  max-width: 442px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 return (
-  <div>
+  <Container>
     <Widget src={currentPage} loading="" />
     <Button onClick={toggleNextPage}>continue</Button>
-  </div>
+  </Container>
 );
