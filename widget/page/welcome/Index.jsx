@@ -1,6 +1,11 @@
 const { Button } = VM.require("${config_account}/widget/components.Button") || {
   Button: () => <></>,
 };
+
+const { href } = VM.require("devs.near/widget/lib.url") || {
+  href: () => {},
+};
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -74,7 +79,17 @@ const Index = () => (
       </p>
     </div>
     <div className="bottom">
-      <Button style={{ width: "100%" }}>continue</Button>
+      <Button
+        href={href({
+          widgetSrc: "${config_account}/widget/Index",
+          params: {
+            page: "profileInfo",
+          },
+        })}
+        style={{ width: "100%", background: "#000", borderRadius: "12px" }}
+      >
+        continue
+      </Button>
     </div>
   </Container>
 );

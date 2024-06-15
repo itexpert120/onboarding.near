@@ -65,32 +65,39 @@ const onInputChange = (e) => {
   }));
 };
 
-useEffect(() => console.log(formState), [formState]);
-
 const onSubmit = () => {
-  if (!formState) {
+  const hasRequiredInfo = formState.name || formState.about || formState.tags;
+  const hasLinktreeInfo = ["twitter", "github", "telegram", "website"].some(
+    (key) => formState[key]
+  );
+
+  if (!hasRequiredInfo && !hasLinktreeInfo) {
     props.toggleNextPage();
   } else {
-    const tags = formState.tags.reduce((acc, current) => {
+    const tagsWithEmpty = (formState.tags ?? []).reduce((acc, current) => {
       acc[current] = "";
       return acc;
     }, {});
-    Social.set(
-      {
-        profile: {
-          name: formState.name,
-          description: formState.about,
-          linktree: {
-            twitter: formState.twitter,
-            github: formState.github,
-            telegram: formState.telegram,
-            website: formState.website,
-          },
-          tags: {
-            ...tags,
-          },
-        },
+
+    const linktree = ["twitter", "github", "telegram", "website"].reduce(
+      (acc, key) => {
+        if (formState[key]) {
+          acc[key] = formState[key];
+        }
+        return acc;
       },
+      {}
+    );
+
+    const profile = {
+      ...(formState.name && { name: formState.name }),
+      ...(formState.about && { description: formState.about }),
+      ...(Object.keys(linktree).length > 0 && { linktree }),
+      ...(tagsWithEmpty.length > 0 && { tags: tagsWithEmpty }),
+    };
+
+    Social.set(
+      { profile },
       {
         onCommit: () => {
           props.toggleNextPage();

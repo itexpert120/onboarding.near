@@ -145,7 +145,10 @@ const StyledButton = styled.button`
     color: ${(props) => {
       if (props.variant === "primary") {
         return "rgba(255, 255, 255, 0.59)";
-      } else if (props.variant === "secondary" || props.variant === "tertiary") {
+      } else if (
+        props.variant === "secondary" ||
+        props.variant === "tertiary"
+      ) {
         return "var(--btn-primary-disabled-bg, #C7C7C7)";
       }
     }};
@@ -155,7 +158,10 @@ const StyledButton = styled.button`
       stroke: ${(props) => {
         if (props.variant === "primary") {
           return "rgba(255, 255, 255, 0.59)";
-        } else if (props.variant === "secondary" || props.variant === "tertiary") {
+        } else if (
+          props.variant === "secondary" ||
+          props.variant === "tertiary"
+        ) {
           return "var(--btn-primary-disabled-bg, #C7C7C7)";
         }
       }};
@@ -237,7 +243,7 @@ const Button = ({
 }) => {
   if (href) {
     return (
-      <Link href={href} className={linkClassName}>
+      <Link href={href} className={linkClassName} {...restProps}>
         <StyledLink
           onClick={onClick}
           variant={variant ?? "primary"}
