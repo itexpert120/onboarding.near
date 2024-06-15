@@ -18,9 +18,13 @@ const Navbar = styled.div`
 return (
   <Navbar>
     <Logo />
-    <div>
+    <div className="d-flex align-items-center gap-2">
       <Widget
         src="${config_account}/widget/components.buttons.UserDropdown"
+        loadin=""
+      />
+      <Widget
+        src="${config_account}/widget/components.buttons.NavbarDropdown"
         loadin=""
       />
     </div>
