@@ -58,7 +58,7 @@ const Index = () => (
       </p>
     </div>
     <div className="bottom">
-      <Button style={{ width: "100%" }}>continue</Button>
+      <Button style={{ width: "100%g" }}>continue</Button>
     </div>
   </Container>
 );
