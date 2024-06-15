@@ -9,6 +9,7 @@ const Container = styled.div`
   height: 100vh;
   gap: 24px;
   .top {
+    width: 442px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,6 +26,7 @@ const Container = styled.div`
       font-weight: 500;
       line-height: normal;
       letter-spacing: -1.28px;
+      margin: 0px;
     }
     .sub-heading {
       color: var(--Gray-11, #6f6f6f);
@@ -37,6 +39,7 @@ const Container = styled.div`
       font-weight: 400;
       line-height: 150%; /* 24px */
       letter-spacing: -0.16px;
+      margin: 0px;
     }
   }
   .bottom {
@@ -45,6 +48,20 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     gap: 8px;
+    width: 442px;
+    Button {
+      padding: 8px 20px;
+      height: 36px;
+      color: var(--BG-Main, #fff);
+
+      /* Text/M - 16px/Medium */
+      font-family: Poppins;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%; /* 24px */
+      letter-spacing: -0.16px;
+    }
   }
 `;
 
@@ -57,7 +74,7 @@ const Index = () => (
       </p>
     </div>
     <div className="bottom">
-      <Button style={{ width: "100%g" }}>continue</Button>
+      <Button style={{ width: "100%" }}>continue</Button>
     </div>
   </Container>
 );
