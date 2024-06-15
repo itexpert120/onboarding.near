@@ -26,11 +26,11 @@ const togglePreviousPage = useCallback(() => {
 
 const Container = styled.div`
   max-width: 442px;
-  margin: 0 auto;
+  margin: 24px auto;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 8px;
+  gap: 24px;
 `;
 
 return (

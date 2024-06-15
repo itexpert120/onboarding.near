@@ -70,7 +70,7 @@ const Index = () => (
     <div className="top">
       <h1 className="heading">Welcome, builder!</h1>
       <p className="sub-heading">
-        We’re happy to have you in our community. Let’s build together!
+        We're happy to have you in our community. Let's build together!
       </p>
     </div>
     <div className="bottom">
