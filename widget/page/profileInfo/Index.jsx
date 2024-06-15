@@ -44,8 +44,13 @@ return (
         setCurrentPage,
       }}
     />
-    <Widget src={currentPage} loading="" />
-    <Button onClick={toggleNextPage}>continue</Button>
+    <Widget
+      src={currentPage}
+      loading=""
+      props={{
+        toggleNextPage,
+      }}
+    />
     {currentPage !== pages[0] && (
       <Button variant="tertiary" onClick={togglePreviousPage}>
         <i className="bi bi-arrow-left"></i>back

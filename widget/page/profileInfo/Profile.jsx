@@ -1,3 +1,7 @@
+const { Button } = VM.require("${config_account}/widget/components.Button") || {
+  Button: () => <></>,
+};
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -61,9 +65,40 @@ const onInputChange = (e) => {
   }));
 };
 
-useEffect(() => {
-  console.log(formState);
-}, [formState]);
+useEffect(() => console.log(formState), [formState]);
+
+const onSubmit = () => {
+  if (!formState) {
+    props.toggleNextPage();
+  } else {
+    const tags = formState.tags.reduce((acc, current) => {
+      acc[current] = "";
+      return acc;
+    }, {});
+    Social.set(
+      {
+        profile: {
+          name: formState.name,
+          description: formState.about,
+          linktree: {
+            twitter: formState.twitter,
+            github: formState.github,
+            telegram: formState.telegram,
+            website: formState.website,
+          },
+          tags: {
+            ...tags,
+          },
+        },
+      },
+      {
+        onCommit: () => {
+          props.toggleNextPage();
+        },
+      }
+    );
+  }
+};
 
 return (
   <Container>
@@ -94,7 +129,7 @@ return (
           placeholder="Your preferred name"
         ></textarea>
         <small id="emailHelp" class="form-text text-muted">
-          --words count
+          {formState.about.length || 0} / 1000
         </small>
       </div>
       <div>
@@ -106,7 +141,12 @@ return (
           placeholder="Select one or many"
           multiple
           selected={formState.tags}
-          onChange={(e) => setFormState({ ...formState, tags: e })}
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              tags: e.map((tag) => (tag.customOption ? tag.label : tag)),
+            })
+          }
           allowNew={true}
           style={{ width: "100%" }}
         />
@@ -118,7 +158,7 @@ return (
           class="form-control"
           id="twitter"
           onChange={onInputChange}
-          placeholder="twitter.com/ username"
+          placeholder="username"
         ></input>
       </div>
       <div className="form-group">
@@ -128,7 +168,7 @@ return (
           id="github"
           onChange={onInputChange}
           class="form-control"
-          placeholder="github.com/ username"
+          placeholder="username"
         ></input>
       </div>
       <div className="form-group">
@@ -138,7 +178,7 @@ return (
           id="telegram"
           onChange={onInputChange}
           class="form-control"
-          placeholder="t.me/ username"
+          placeholder="username"
         ></input>
       </div>
       <div className="form-group">
@@ -152,5 +192,8 @@ return (
         ></input>
       </div>
     </FormGroup>
+    <Button variant="primary" onClick={onSubmit}>
+      continue
+    </Button>
   </Container>
 );
