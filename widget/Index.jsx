@@ -36,6 +36,15 @@ const config = {
         init: {
           name: "Welcome",
         },
+        hide: true,
+      },
+      profileInfo: {
+        path: "${config_account}/widget/page.profileInfo.Index",
+        blockHeight: "final",
+        init: {
+          name: "Profile Info",
+        },
+        hide: true,
       },
     },
   },
