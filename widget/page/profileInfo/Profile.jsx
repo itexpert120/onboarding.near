@@ -1,3 +1,7 @@
+if (!context.accountId) {
+  return <div>Please connect your wallet</div>;
+}
+
 const { Button } = VM.require("${config_account}/widget/components.Button") || {
   Button: () => <></>,
 };
@@ -58,6 +62,23 @@ const FormGroup = styled.div`
 `;
 
 const [formState, setFormState] = useState({});
+
+const profile = Social.getr(`${context.accountId}/profile`);
+
+if (profile) {
+  setFormState({
+    name: formState.name ?? profile.name,
+    about: formState.about ?? profile.description,
+    tags: formState.tags ?? Object.keys(profile.tags),
+    ...(Object.keys(profile.linktree).length > 0 && {
+      twitter: formState.twitter ?? profile.linktree.twitter,
+      github: formState.github ?? profile.linktree.github,
+      telegram: formState.telegram ?? profile.linktree.telegram,
+      website: formState.website ?? profile.linktree.website,
+    }),
+  });
+}
+
 const onInputChange = (e) => {
   setFormState((prevState) => ({
     ...prevState,
@@ -89,11 +110,13 @@ const onSubmit = () => {
       {}
     );
 
+    console.log(tagsWithEmpty);
+
     const profile = {
       ...(formState.name && { name: formState.name }),
       ...(formState.about && { description: formState.about }),
       ...(Object.keys(linktree).length > 0 && { linktree }),
-      ...(tagsWithEmpty.length > 0 && { tags: tagsWithEmpty }),
+      ...(Object.keys(tagsWithEmpty).length > 0 && { tags: tagsWithEmpty }),
     };
 
     Social.set(
@@ -106,6 +129,8 @@ const onSubmit = () => {
     );
   }
 };
+
+console.log(formState);
 
 return (
   <Container>
@@ -132,10 +157,17 @@ return (
           type="text"
           class="form-control"
           id="about"
+          value={formState.about}
           onChange={onInputChange}
           placeholder="Your preferred name"
+          style={{ minHeight: "125px" }}
         ></textarea>
-        <small id="emailHelp" class="form-text text-muted">
+        <small
+          id="emailHelp"
+          class={`form-text ${
+            formState.about.length > 1000 ? "text-danger" : "text-muted"
+          }`}
+        >
           {formState.about.length || 0} / 1000
         </small>
       </div>
@@ -144,16 +176,16 @@ return (
           <label htmlFor="name">Tags</label>
         </div>
         <Typeahead
-          options={["asd", "dsa"]}
+          options={["bos", "near", "dev", "builders"]}
           placeholder="Select one or many"
           multiple
           selected={formState.tags}
-          onChange={(e) =>
-            setFormState({
-              ...formState,
+          onChange={(e) => {
+            setFormState((prev) => ({
+              ...prev,
               tags: e.map((tag) => (tag.customOption ? tag.label : tag)),
-            })
-          }
+            }));
+          }}
           allowNew={true}
           style={{ width: "100%" }}
         />
@@ -164,6 +196,7 @@ return (
           type="text"
           class="form-control"
           id="twitter"
+          value={formState.twitter}
           onChange={onInputChange}
           placeholder="username"
         ></input>
@@ -174,6 +207,7 @@ return (
           type="text"
           id="github"
           onChange={onInputChange}
+          value={formState.github}
           class="form-control"
           placeholder="username"
         ></input>
@@ -184,6 +218,7 @@ return (
           type="text"
           id="telegram"
           onChange={onInputChange}
+          value={formState.telegram}
           class="form-control"
           placeholder="username"
         ></input>
@@ -194,12 +229,17 @@ return (
           type="text"
           id="website"
           onChange={onInputChange}
+          value={formState.website}
           class="form-control"
           placeholder="https:// website"
         ></input>
       </div>
     </FormGroup>
-    <Button variant="primary" onClick={onSubmit}>
+    <Button
+      variant="primary"
+      disabled={formState.about.length > 1000}
+      onClick={onSubmit}
+    >
       continue
     </Button>
   </Container>
