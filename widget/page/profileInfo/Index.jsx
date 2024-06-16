@@ -10,7 +10,7 @@ const pages = [
   "${config_account}/widget/page.profileInfo.Post",
 ];
 
-const [currentPage, setCurrentPage] = useState(pages[0]);
+const [currentPage, setCurrentPage] = useState(pages[1]);
 const toggleNextPage = useCallback(() => {
   const nextPage = pages[pages.indexOf(currentPage) + 1];
   if (nextPage) {

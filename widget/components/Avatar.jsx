@@ -2,9 +2,10 @@ const { User } = VM.require("${config_account}/widget/icons") || {
   User: () => <></>,
 };
 
-const Avatar = ({ accountId, size, large, form, imageStyle, key }) => {
+const Avatar = ({ accountId, image, size, large, form, imageStyle, key }) => {
   const imageForm = form ?? "circle";
   const profile = Social.getr(`${accountId}/profile`);
+
   if (!profile.image) {
     return (
       <div

@@ -5,6 +5,8 @@ const { ChevronDown } = VM.require(
 const { ChevronUp } = VM.require("${config_account}/widget/icons.ChevronUp");
 const { Logout } = VM.require("${config_account}/widget/icons.Logout");
 const { Menu } = VM.require("${config_account}/widget/icons.Menu");
+const { Refresh } = VM.require("${config_account}/widget/icons.Refresh");
+const { Image } = VM.require("${config_account}/widget/icons.Image");
 
 return {
   User,
@@ -12,4 +14,6 @@ return {
   ChevronUp,
   Logout,
   Menu,
+  Refresh,
+  Image,
 };
