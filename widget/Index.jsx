@@ -28,7 +28,6 @@ const config = {
         init: {
           name: "Home",
         },
-        default: true,
       },
       welcome: {
         path: "${config_account}/widget/page.welcome.Index",
@@ -36,6 +35,7 @@ const config = {
         init: {
           name: "Welcome",
         },
+        default: true,
         hide: true,
       },
       profileInfo: {

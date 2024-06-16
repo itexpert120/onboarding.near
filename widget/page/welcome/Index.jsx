@@ -45,6 +45,7 @@ const Container = styled.div`
       line-height: 150%; /* 24px */
       letter-spacing: -0.16px;
       margin: 0px;
+      text-wrap: balance;
     }
   }
   .bottom {

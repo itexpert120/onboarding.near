@@ -86,6 +86,32 @@ const onInputChange = (e) => {
   }));
 };
 
+const deepEqual = (obj1, obj2) => {
+  if (obj1 === obj2) {
+    return true;
+  }
+
+  if (obj1 && obj2 && typeof obj1 === "object" && typeof obj2 === "object") {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+
+    for (let i = 0; i < keys1.length; i++) {
+      const key = keys1[i];
+      if (!deepEqual(obj1[key], obj2[key])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  return false;
+};
+
 const onSubmit = () => {
   const hasRequiredInfo = formState.name || formState.about || formState.tags;
   const hasLinktreeInfo = ["twitter", "github", "telegram", "website"].some(
@@ -110,27 +136,34 @@ const onSubmit = () => {
       {}
     );
 
-    console.log(tagsWithEmpty);
-
-    const profile = {
+    const data = {
       ...(formState.name && { name: formState.name }),
       ...(formState.about && { description: formState.about }),
       ...(Object.keys(linktree).length > 0 && { linktree }),
       ...(Object.keys(tagsWithEmpty).length > 0 && { tags: tagsWithEmpty }),
     };
 
-    Social.set(
-      { profile },
-      {
-        onCommit: () => {
-          props.toggleNextPage();
-        },
-      }
-    );
+    const profile = {
+      name: profile.name,
+      description: profile.description,
+      linktree: profile.linktree,
+      tags: profile.tags,
+    };
+
+    if (deepEqual(data, profile)) {
+      props.toggleNextPage();
+    } else {
+      Social.set(
+        { profile: data },
+        {
+          onCommit: () => {
+            props.toggleNextPage();
+          },
+        }
+      );
+    }
   }
 };
-
-console.log(formState);
 
 return (
   <Container>
