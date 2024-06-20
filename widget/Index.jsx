@@ -51,9 +51,6 @@ const config = {
 };
 return (
   <CSS>
-    <Widget
-      src="${config_account}/widget/app.View"
-      props={{ config, ...props }}
-    />
+    <Widget src="buildhub.near/widget/app.view" props={{ config, ...props }} />
   </CSS>
 );
